@@ -1,5 +1,6 @@
 package com.xiao.product.service;
 
+import com.xiao.product.dto.CartDTO;
 import com.xiao.product.dataobject.ProductInfo;
 
 import java.util.List;
@@ -15,4 +16,12 @@ public interface ProductService {
      * @return
      */
     List<ProductInfo> findUpAll();
+
+    List<ProductInfo> findList(List<String> productIdList);
+
+    /**
+     * 扣库存
+     * @param cartDTOList
+     */
+    void decreaseStock(List<CartDTO> cartDTOList);
 }

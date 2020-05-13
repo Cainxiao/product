@@ -1,5 +1,6 @@
 package com.xiao.product.controller;
 
+import com.xiao.product.dto.CartDTO;
 import com.xiao.product.VO.ProductInfoVo;
 import com.xiao.product.VO.ProductVO;
 import com.xiao.product.VO.ResultVO;
@@ -10,9 +11,7 @@ import com.xiao.product.service.ProductService;
 import com.xiao.product.utils.ResultVOUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/product")
-public class productController {
+public class ProductController {
 
     @Autowired
     private ProductService productService;
@@ -70,5 +69,25 @@ public class productController {
             productVOList.add(productVO);
         }
         return ResultVOUtil.success(productVOList);
+    }
+
+    /**
+     * 获取商品列表（给订单服务使用）
+     * @param productIdList
+     * @return
+     */
+    @PostMapping("/listForOrder")
+    public List<ProductInfo> listForOrder(@RequestBody List<String> productIdList) {
+        return productService.findList(productIdList);
+    }
+
+
+    /**
+     * 扣库存
+     * @param cartDTOList
+     */
+    @PostMapping("/decreaseStock")
+    public void decreaseStock(@RequestBody List<CartDTO> cartDTOList) {
+        productService.decreaseStock(cartDTOList);
     }
 }
