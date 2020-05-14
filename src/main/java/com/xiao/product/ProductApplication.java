@@ -9,7 +9,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 public class ProductApplication {
 
     //1
-    //2
     public static void main(String[] args) {
         SpringApplication.run(ProductApplication.class, args);
     }
